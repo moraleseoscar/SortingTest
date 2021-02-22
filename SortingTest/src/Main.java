@@ -14,7 +14,7 @@ public class Main {
 		Sorts st = new Sorts();
 		Scanner sc = new Scanner(System.in);
 		st.generarArchivo(100);
-		
+
 		boolean menu = true;
 		
         while(menu) {
@@ -35,7 +35,7 @@ public class Main {
             System.out.print("Seleccione el numero de la accion que desea realizar: ");
             int sel = sc.nextInt();
             sc.nextLine();
-            while(sel < 0 || sel > 8) {
+            while(sel < 0 || sel > 7) {
             	System.out.print("Seleccion fuera de rango. Intente de nuevo:");
                 sel = sc.nextInt();
                 sc.nextLine();
@@ -51,19 +51,57 @@ public class Main {
                 st.generarArchivo(cantidad);
                 System.out.println("Archivo generado correctamente...\n");
             }else if (sel == 2) {
-                System.out.println(st.gnomeSort(st.leerArchivo()));
+            	int[] datos = st.leerArchivo();
+            	long nano_startTime = System.nanoTime(); 
+            	int[] test = st.gnomeSort(datos);
+            	long nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos desordenados: " + (nano_endTime - nano_startTime)); 
+            	nano_startTime = System.nanoTime(); 
+            	test = st.gnomeSort(test);
+            	nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos ordenados: " + (nano_endTime - nano_startTime)); 
+                System.out.println("\n" + st.verListado(test));
             }
             else if (sel == 3) {
-                System.out.println(st.verListado(st.mergeSort(st.leerArchivo())));
+            	int[] datos = st.leerArchivo();
+            	long nano_startTime = System.nanoTime(); 
+            	int[] test = st.mergeSort(datos);
+            	long nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos desordenados: " + (nano_endTime - nano_startTime)); 
+            	nano_startTime = System.nanoTime(); 
+            	test = st.mergeSort(test);
+            	nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos ordenado: " + (nano_endTime - nano_startTime)); 
+                System.out.println("\n" + st.verListado(test));
             }
             else if (sel == 4) {
-                System.out.println(st.quickSortMethod(st.leerArchivo(), 0, st.leerArchivo().length -1));
+            	st.quickSortMethod(st.leerArchivo(), 0, st.leerArchivo().length -1);
             }
             else if (sel == 5) {
-                System.out.println(st.radixMethod(st.leerArchivo(), st.leerArchivo().length));
+            	int[] test = st.leerArchivo();
+            	long nano_startTime = System.nanoTime(); 
+            	st.radixMethod(test, test.length);
+            	long nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos desordenados: " + (nano_endTime - nano_startTime)); 
+            	nano_startTime = System.nanoTime(); 
+            	st.radixMethod(test, test.length);
+            	nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos ordenados: " + (nano_endTime - nano_startTime)); 
+                System.out.println("\n" + st.verListado(test));
+            	
+            	
+            	
             }
             else if (sel == 6) {
-                System.out.println(st.verListado(st.bubbleSort(st.leerArchivo())));
+            	long nano_startTime = System.nanoTime(); 
+            	int[] test = st.leerArchivo();
+            	long nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos desordenados: " + (nano_endTime - nano_startTime)); 
+            	nano_startTime = System.nanoTime(); 
+            	test = st.bubbleSort(test);
+            	nano_endTime = System.nanoTime();
+            	System.out.println("Tiempo en ordenar con datos ordenados: " + (nano_endTime - nano_startTime)); 
+                System.out.println("\n" + st.verListado(st.bubbleSort(test)));
             }
             else if (sel == 7) {
                 System.out.println(st.verListado(st.leerArchivo()));
@@ -73,7 +111,7 @@ public class Main {
 	}
 	
 	/** 
-	 * Verifica que todo lo ingresado sea un número.
+	 * Verifica que todo lo ingresado sea un numero.
 	 * @param texto
 	 * @return int
 	 */

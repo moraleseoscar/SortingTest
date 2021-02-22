@@ -14,30 +14,45 @@ public class TesteoSorts extends TestCase{
 		sorts = new Sorts();
 	}
 	
+	/** 
+	 * Testeo de GnomeSort
+	 */
 	@Test
 	public void testgnomeSort() {
 		escenario();
-		assertEquals(sorts.gnomeSort(prueba), " 1 2 3 4 5");
+		assertEquals(sorts.gnomeSort(prueba), ordenado);
 	}
 	
+	/** 
+	 * Testeo de MergeSort
+	 */
 	@Test
 	public void testmergeSort() {
 		escenario();
 		assertArrayEquals(sorts.mergeSort(prueba), ordenado);
 	}
 	
+	/** 
+	 * Testeo de QuickSort
+	 */
 	@Test
 	public void testquickSortMethodSort() {
 		escenario();
 		assertEquals(sorts.quickSortMethod(prueba, 0, 4), " 1 2 3 4 5");
 	}
 	
+	/** 
+	 * Testeo de RadixSort
+	 */
 	@Test
 	public void testradixMethodSort() {
 		escenario();
 		assertEquals(sorts.radixMethod(prueba, 5), " 1 2 3 4 5");
 	}
 	
+	/** 
+	 * Testeo de BubbleSort
+	 */
 	@Test
 	public void testbubbleSort() {
 		escenario();

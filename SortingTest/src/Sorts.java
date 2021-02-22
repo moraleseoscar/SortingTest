@@ -15,13 +15,17 @@ import java.util.*;
 public class Sorts {
 	
 	/**
-	 * 
+	 * Constructor
 	 */
 	public Sorts(){
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	/** 
+	 * Genera una vista para el array de entrada.
+	 * @param listado
+	 * @return String
+	 */
 	public String verListado(int[] listado) {
 		String cadena = "";
 		for(int i: listado) {
@@ -30,7 +34,15 @@ public class Sorts {
 		return cadena;
 	}
 	
-	public String gnomeSort(int[] numeros) {
+	
+	/** 
+	 * Algoritmo de sort Gnome
+	 * Referencia: https://panthema.net/2013/sound-of-sorting/
+	 * Algoritmo de notación O(n), siendo en un caso desfavorable hasta O(n2)
+	 * @param numeros
+	 * @return int[]
+	 */
+	public int[] gnomeSort(int[] numeros) {
 		int i = 1;
 		int temp;
 		while (i < numeros.length) {
@@ -45,9 +57,17 @@ public class Sorts {
 				}
 			}
 		}
-		return verListado(numeros);
+		return numeros;
 	} 
 	
+	
+	/** 
+	 * Algoritmo de sort Merge.
+	 * Algoritmo de notación O(n logn)
+	 * Referencia: https://www.youtube.com/watch?v=yv6svAfoYik&t=444s
+	 * @param numeros
+	 * @return int[]
+	 */
 	public int[] mergeSort(int[] numeros) {
 		if (numeros.length <= 1) {
 			return numeros;
@@ -81,6 +101,14 @@ public class Sorts {
 		return result;
 	}
 	
+	
+	/**
+	 * Merge parte del algoritmo MergeSort. En esta parse se une cada mitad. 
+	 * Referencia: https://www.youtube.com/watch?v=yv6svAfoYik&t=444s
+	 * @param left
+	 * @param right
+	 * @return int[]
+	 */
 	public int[] merge(int[] left, int[] right) {
 		int[] result = new int[left.length + right.length];
 		
@@ -104,12 +132,36 @@ public class Sorts {
 		return result;
 	}
 	
+	
+	/** 
+	 * Llamada para quickSort y tener un valor de retorno.
+	 * @param numeros
+	 * @param izquierda
+	 * @param derecha
+	 * @return String
+	 */
 	public String quickSortMethod(int[] numeros, int izquierda, int derecha) {
 		int[] mostrar = numeros;
-		quickSort(mostrar, izquierda, derecha);
-		return verListado(mostrar);
+		long nano_startTime = System.nanoTime(); 
+    	quickSort(mostrar, izquierda, derecha);
+    	long nano_endTime = System.nanoTime();
+    	System.out.println("Tiempo en ordenar con datos desordenados: " + (nano_endTime - nano_startTime)); 
+    	nano_startTime = System.nanoTime(); 
+    	quickSort(mostrar, izquierda, derecha);
+    	nano_endTime = System.nanoTime();
+    	System.out.println("Tiempo en ordenar con datos ordenados: " + (nano_endTime - nano_startTime)); 
+        return "\n" + verListado(mostrar);
 	}
 	
+	
+	/** 
+	 * Algoritmo de sort Quick
+	 * Referencia: https://www.youtube.com/watch?v=Fiot5yuwPAg&t=477s
+	 * Quick sort puede llegar a ser O(n2) o hasta el peor de los casos O(n logn)
+	 * @param numeros
+	 * @param izquierda
+	 * @param derecha
+	 */
 	public void quickSort(int[] numeros, int izquierda, int derecha) {
 		int pivot = numeros[izquierda];
 		int i = izquierda;
@@ -142,15 +194,27 @@ public class Sorts {
 		
 	}
 	
+	
+	/** 
+	 * Llamada al algoritmo para tener un valor de retorno.
+	 * @param numeros
+	 * @param n
+	 * @return String
+	 */
 	public String radixMethod(int[] numeros, int n) {
 		int[] mostrar = numeros;
 		radixSort(mostrar, n);
 		return verListado(mostrar);
 	}
 	
-	
-	
-    public int getMax(int arr[], int n) 
+	/** 
+	 * Algoritmo parte de RadixSort, encargado de encotrar el máximo para sus bordes.
+	 * Referencia: //https://www.geeksforgeeks.org/radix-sort/
+	 * @param arr[]
+	 * @param n
+	 * @return int
+	 */
+	public int getMax(int arr[], int n) 
     { 
         int mx = arr[0]; 
         for (int i = 1; i < n; i++) 
@@ -159,9 +223,17 @@ public class Sorts {
         return mx; 
     } 
   
-    public void countSort(int arr[], int n, int exp) 
+    
+	/** 
+	 * Algoritmo parte de RadixSort, 
+	 * Referencia: //https://www.geeksforgeeks.org/radix-sort/
+	 * @param arr[]
+	 * @param n
+	 * @param exp
+	 */
+	public void countSort(int arr[], int n, int exp) 
     { 
-        int output[] = new int[n]; // output array 
+        int output[] = new int[n];
         int i; 
         int count[] = new int[10]; 
         Arrays.fill(count, 0); 
@@ -177,15 +249,32 @@ public class Sorts {
             arr[i] = output[i]; 
     } 
   
-    public void radixSort(int arr[], int n) 
+    
+	/** 
+	 * Algoritmo para sort Radix
+	 * Referencia: //https://www.geeksforgeeks.org/radix-sort/
+	 * Tiene una notación de O(n) en el mejor comportamiento. Si no se aprovecha la estructura
+	 * de claves, este tiene una estructura de O(n logn).
+	 * @param arr[]
+	 * @param n
+	 */
+	public void radixSort(int arr[], int n) 
     { 
         int m = getMax(arr, n); 
-        for (int exp = 1; m / exp > 0; exp *= 10)  //https://www.geeksforgeeks.org/radix-sort/
+        for (int exp = 1; m / exp > 0; exp *= 10)  
             countSort(arr, n, exp); 
     } 
     
     
-    public int[] bubbleSort(int[] numeros) {
+    
+	/** 
+	 * Algoritmo para sort Bubble
+	 * Elegido. Referencia por: https://panthema.net/2013/sound-of-sorting/
+	 * Tiene una notación O(n2)
+	 * @param numeros
+	 * @return int[]
+	 */
+	public int[] bubbleSort(int[] numeros) {
     	int i, j, temp = 0;
     	for(i = 0; i< numeros.length - 1; i++) {
     		for(j = 0; j<numeros.length - 1 -i; j++) {
@@ -199,17 +288,21 @@ public class Sorts {
     	return numeros;
     }
 	
+	
+	/** 
+	 * Generamos el archivo según la cantidad que nos indiquen
+	 * @param cantidad
+	 */
 	public void generarArchivo(int cantidad) {
 		int numero;
-		numero = (int) (Math.random() * 3000 + 1);
+		numero = (int) (Math.random() * 10000 + 1);
 		String cadena = "" + numero;
 		for (int i = 0; i <= (cantidad-1); i++) {
-		    numero = (int) (Math.random() * 3000 + 1);
+		    numero = (int) (Math.random() * 10000 + 1);
 		    cadena = cadena + ", " + numero;
 		}
 		try {
-			FileWriter fw = new FileWriter("numeros.txt"
-					+ ""); 
+			FileWriter fw = new FileWriter("numeros.txt"+ ""); 
 			fw.write(cadena);
 			fw.close();	
 		}catch(Exception e) {
@@ -217,6 +310,11 @@ public class Sorts {
 		}
 	}
 	
+	
+	/** 
+	 * Lee el archivo para cada vez que se vaya a ejecutar cada sort, sea el mismo
+	 * @return int[]
+	 */
 	public int[] leerArchivo() {
 		String texto = new String();
 		try {
