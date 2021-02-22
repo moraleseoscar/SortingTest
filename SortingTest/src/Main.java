@@ -13,7 +13,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		Sorts st = new Sorts();
 		Scanner sc = new Scanner(System.in);
-		st.generarArchivo(100);
+		st.generarArchivo(3000);
 
 		boolean menu = true;
 		
